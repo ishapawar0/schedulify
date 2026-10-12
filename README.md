@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📅 Schedulify — Modern Event Scheduling App
 
-## Getting Started
+Schedulify is a full-stack Calendly clone built to simplify scheduling meetings and managing availability. It allows users to create custom event types, manage their weekly availability, and seamlessly connect with Google Calendar so bookings automatically generate Google Meet links without overlapping schedules.
 
-First, run the development server:
+---
 
+## ✨ Features
+
+* **Authentication & Profiles:** Quick user sign-in and profile setup managed via Clerk.
+* **Custom Event Types:** Create public or private events with customizable titles, descriptions, durations, and URLs.
+* **Dynamic Booking Pages:** Shareable user booking links for recruiters, clients, or team members to pick available slots.
+* **Google Calendar Integration:** Automatically syncs booked events to your primary Google Calendar and generates live Google Meet invite links.
+* **Availability Management:** Set custom daily working hours and time buffers to prevent back-to-back meeting fatigue.
+* **Click & Booking Analytics:** Dashboard to view upcoming and past scheduled meetings.
+
+---
+
+## 🛠️ Tech Stack
+
+* **Framework:** [Next.js](https://nextjs.org/) (App Router & Server Actions)
+* **Language:** TypeScript
+* **Styling:** Tailwind CSS & [Shadcn UI](https://ui.shadcn.com/)
+* **Database:** PostgreSQL (hosted on [Neon](https://neon.tech/))
+* **ORM:** [Prisma](https://prisma.io/)
+* **Authentication:** [Clerk](https://clerk.com/)
+* **Integrations:** Google Calendar API (via Google Auth Platform)
+* **Deployment:** Vercel
+
+---
+
+## 🚀 Getting Started
+
+Follow these steps to set up and run the project locally on your machine:
+
+### 1. Clone the repository
 ```bash
+git clone [https://github.com/ishapawar0/schedulify.git](https://github.com/ishapawar0/schedulify.git)
+cd schedulify
+### 2. Install dependencies
+```bash
+npm install
+3. Set up environment variables
+Create a .env file in the root directory and add your credentials:
+
+Code snippet
+# Database
+DATABASE_URL="postgresql://user:password@ep-example.neon.tech/neondb?sslmode=require"
+
+# Clerk Auth
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+CLERK_SECRET_KEY=sk_test_...
+
+# App URL
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+4. Set up the Database Schema
+Push the Prisma schema to your Neon PostgreSQL instance:
+
+Bash
+npx prisma db push
+5. Run the development server
+Bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Open http://localhost:3000 in your browser to view the application.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🔒 Google Calendar API Setup
+To enable Google Calendar syncing locally or in production:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Create a project in the Google Cloud Console.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Enable the Google Calendar API.
 
-## Learn More
+Configure your OAuth Consent Screen with required scopes (.../auth/calendar).
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Link your Google OAuth credentials inside Clerk's External Connection settings.
